@@ -4,6 +4,16 @@
 $web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic" !default;
 @import url($web-font-path);
 
+// Jumbotron
+
+.jumbotron-home {
+  margin-top: 12px;
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/images/han-hsing-tu-283033.jpg);
+  background-size: cover;
+  background-position-y: -120px;
+  color: #fff;
+}
+
 // Navbar =====================================================================
 
 .navbar {
@@ -269,11 +279,11 @@ input {
 // Progress bars ==============================================================
 
 .progress {
-  height: 10px;
+  height: 20px;
   @include box-shadow(none);
   .progress-bar {
-    font-size: 10px;
-    line-height: 10px;
+    font-size: 12px;
+    line-height: 20px;
   }
 }
 
@@ -341,4 +351,10 @@ a.list-group-item {
 
 .popover {
   color: $text-color;
+}
+
+// Footer ----
+
+footer {
+  line-height: $line-height-computed !important;
 }
