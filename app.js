@@ -121,7 +121,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 if (process.env.FORCE_SSL === 'true') {
   // https redirect
   app.use((req, res, next) => {
-    if (req.secure) {
+    if (req.secure || req.headers['x-forwarded-proto'] === 'https') {
       return next();
     }
     res.redirect(`https://${req.hostname}${req.url}`);
