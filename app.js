@@ -111,12 +111,22 @@ app.use((req, res, next) => {
       !req.path.match(/\./)) {
     req.session.returnTo = req.path;
   } else if (req.user &&
-      req.path == '/account') {
+      req.path === '/account') {
     req.session.returnTo = req.path;
   }
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+
+if (process.env.FORCE_SSL === 'true') {
+  // https redirect
+  app.use((req, res, next) => {
+    if (req.secure) {
+      return next();
+    }
+    res.redirect(`https://${req.hostname}${req.url}`);
+  });
+}
 
 /**
  * Primary app routes.
@@ -157,7 +167,8 @@ app.get('/api/scraping', apiController.getScraping);
 // app.post('/api/twilio', apiController.postTwilio);
 // app.get('/api/clockwork', apiController.getClockwork);
 app.post('/api/clockwork', apiController.postClockwork);
-// app.get('/api/foursquare', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFoursquare);
+// app.get('/api/foursquare', passportConfig.isAuthenticated,
+//    passportConfig.isAuthorized, apiController.getFoursquare);
 app.get('/api/tumblr', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTumblr);
 app.get('/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
 app.get('/api/github', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGithub);
@@ -232,7 +243,7 @@ app.use(errorHandler());
  * Start Express server.
  */
 app.listen(app.get('port'), () => {
-  console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env')); 
+  console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env'));
   console.log('  Press CTRL-C to stop\n');
 });
 
