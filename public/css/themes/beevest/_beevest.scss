@@ -37,6 +37,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic"
 
   &-logo {
     display:block;
+    position: relative;
     color: $navbar-default-color;
     font-size: $font-size-large;
     letter-spacing: $font-size-large / 10;
@@ -51,6 +52,20 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic"
       vertical-align: middle;
       fill: yellow;
       width: $navbar-logo-img-width;
+    }
+
+    .beta-flag {
+      position: absolute;
+      font-size: 6px;
+      bottom: 3px;
+      right: 0;
+      background: #fff;
+      height: 12px;
+      color: $brand-primary;
+      line-height: 12px;
+      padding: 0 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
     }
   }
 }
